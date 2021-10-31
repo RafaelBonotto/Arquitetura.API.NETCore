@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arquitetura.API", "Arquitetura.API\Arquitetura.API.csproj", "{C8E6DF8C-049D-4E25-AF1C-07E8CF9C135F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8E6DF8C-049D-4E25-AF1C-07E8CF9C135F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E6DF8C-049D-4E25-AF1C-07E8CF9C135F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E6DF8C-049D-4E25-AF1C-07E8CF9C135F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E6DF8C-049D-4E25-AF1C-07E8CF9C135F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DBDE78D-5E06-418D-AF99-CDB4F7F152C3}
+	EndGlobalSection
+EndGlobal
