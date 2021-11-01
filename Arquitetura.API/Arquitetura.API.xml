@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Arquitetura.API</name>
+    </assembly>
+    <members>
+        <member name="M:Arquitetura.API.Controllers.UsuarioController.Logar(Arquitetura.API.Models.LoginViewModelInput)">
+            <summary>
+            Fazer Login no sistema
+            Params: Login, Senha
+            </summary>
+            <param name="loginViewModelInput"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Arquitetura.API.Controllers.UsuarioController.Regsitrar(Arquitetura.API.Models.RegistrarViewModelInput)">
+            <summary>
+            Registrar Usuario no sitema
+            Params: Login, Email, Senha
+            </summary>
+            <param name="registrarViewModelInput"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
