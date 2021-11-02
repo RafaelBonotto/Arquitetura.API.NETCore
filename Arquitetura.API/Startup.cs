@@ -1,18 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Arquitetura.API
 {
@@ -29,16 +23,16 @@ namespace Arquitetura.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //services.AddControllers().ConfigureApiBehaviorOptions(options =>
-            //{
-            //    //Desabilitar validação padrão do model state
-            //    options.SuppressModelStateInvalidFilter = true;
-            //});
+            services.AddControllers().ConfigureApiBehaviorOptions(options =>
+            {
+                //Desabilitar validação padrão do model state
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Arquitetura.API", Version = "v1" });
-
+                // Leitura do arquivo XML que foi gerado
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
@@ -55,7 +49,6 @@ namespace Arquitetura.API
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Arquitetura.API v1");
-                    c.RoutePrefix = string.Empty;//swagger
                 });
             }
 

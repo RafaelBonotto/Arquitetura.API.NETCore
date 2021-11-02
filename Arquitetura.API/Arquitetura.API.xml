@@ -6,15 +6,15 @@
     <members>
         <member name="M:Arquitetura.API.Controllers.UsuarioController.Logar(Arquitetura.API.Models.LoginViewModelInput)">
             <summary>
-            Fazer Login no sistema
+            Esse serviço permite autenticar um usuario cadastrado e ativo.
             Params: Login, Senha
             </summary>
-            <param name="loginViewModelInput"></param>
-            <returns></returns>
+            <param name="loginViewModelInput">View Model do Login</param>
+            <returns>Retorna status ok, dados do usuario e o token em caso de sucesso</returns>
         </member>
         <member name="M:Arquitetura.API.Controllers.UsuarioController.Regsitrar(Arquitetura.API.Models.RegistrarViewModelInput)">
             <summary>
-            Registrar Usuario no sitema
+            Registrar Usuario no sitema.
             Params: Login, Email, Senha
             </summary>
             <param name="registrarViewModelInput"></param>

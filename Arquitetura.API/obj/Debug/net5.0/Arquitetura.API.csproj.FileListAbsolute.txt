@@ -27,3 +27,5 @@ C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\obj\Debug\
 C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\obj\Debug\net5.0\Arquitetura.API.pdb
 C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\obj\Debug\net5.0\Arquitetura.API.genruntimeconfig.cache
 C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Arquitetura.API.xml
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\obj\Debug\net5.0\Arquitetura.API.csproj.AssemblyReference.cache
