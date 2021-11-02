@@ -29,3 +29,10 @@ C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\obj\Debug\
 C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Arquitetura.API.xml
 C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\obj\Debug\net5.0\Arquitetura.API.csproj.AssemblyReference.cache
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Cursos\DIO\API.ArquiteturaBack-end\Arquitetura.API\Arquitetura.API\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
