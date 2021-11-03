@@ -4,6 +4,19 @@
         <name>Arquitetura.API</name>
     </assembly>
     <members>
+        <member name="M:Arquitetura.API.Controllers.CursoController.PostAsync(Arquitetura.API.Models.CursoViewModelInput)">
+            <summary>
+            Este serviço permite cadastrar curso para usuario autenticado
+            </summary>
+            <param name="cursoViewModelInput"></param>
+            <returns>Retorna status 201 e dados do curso do usuario</returns>
+        </member>
+        <member name="M:Arquitetura.API.Controllers.CursoController.Get">
+            <summary>
+            Este serviço permite obter todos os curso ativos do usuario
+            </summary>
+            <returns>Retorna status ok e dados do curso do usuario</returns>
+        </member>
         <member name="M:Arquitetura.API.Controllers.UsuarioController.Logar(Arquitetura.API.Models.LoginViewModelInput)">
             <summary>
             Esse serviço permite autenticar um usuario cadastrado e ativo.
