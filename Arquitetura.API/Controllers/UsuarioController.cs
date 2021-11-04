@@ -68,11 +68,12 @@ namespace Arquitetura.API.Controllers
         }
 
         /// <summary>
-        /// Registrar Usuario no sitema.
-        /// Params: Login, Email, Senha
+        /// Esse serviço permite cadastrar um usuario no sitema.
         /// </summary>
-        /// <param name="registrarViewModelInput"></param>
-        /// <returns></returns>
+        /// <param name="registrarViewModelInput">View model de registro de login</param>
+        [SwaggerResponse(statusCode: 200, description: "Sucesso ao autenticar", Type =typeof(LoginViewModelInput))]
+        [SwaggerResponse(statusCode: 400, description: "Campos obrigatórios", Type = typeof(ValidarCampoViewModelOutput))]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno", Type = typeof(ErroGenericoViewModel))]
         [HttpPost]
         [Route("registrar")]
         [ValidacaoModelStateCustomizado]
@@ -80,8 +81,13 @@ namespace Arquitetura.API.Controllers
         {
             var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-
             CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
+
+            var migrationsPendentes = contexto.Database.GetPendingMigrations();
+            if (migrationsPendentes.Count() > 0)
+            {
+                contexto.Database.Migrate();
+            }
 
             var usuario = new Usuario();
             usuario.Login = registrarViewModelInput.Login;
