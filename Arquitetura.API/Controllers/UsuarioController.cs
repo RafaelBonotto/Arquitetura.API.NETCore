@@ -1,6 +1,9 @@
-﻿using Arquitetura.API.Filters;
+﻿using Arquitetura.API.Business.Entities;
+using Arquitetura.API.Filters;
+using Arquitetura.API.Infraestruture.Data;
 using Arquitetura.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -75,6 +78,19 @@ namespace Arquitetura.API.Controllers
         [ValidacaoModelStateCustomizado]
         public IActionResult Regsitrar(RegistrarViewModelInput registrarViewModelInput)
         {
+            var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+            CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
+
+            var usuario = new Usuario();
+            usuario.Login = registrarViewModelInput.Login;
+            usuario.Email = registrarViewModelInput.Email;
+            usuario.Senha = registrarViewModelInput.Senha;
+            contexto.Usuario.Add(usuario);
+            contexto.SaveChanges();
+
+
             return Created("", registrarViewModelInput);
         }
     }
