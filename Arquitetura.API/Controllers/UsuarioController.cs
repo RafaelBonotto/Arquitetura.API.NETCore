@@ -1,16 +1,11 @@
 ﻿using Arquitetura.API.Business.Entities;
+using Arquitetura.API.Business.Repositorys;
+using Arquitetura.API.Configurations;
 using Arquitetura.API.Filters;
-using Arquitetura.API.Infraestruture.Data;
 using Arquitetura.API.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 
 namespace Arquitetura.API.Controllers
 {
@@ -18,6 +13,17 @@ namespace Arquitetura.API.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IConfiguration _configuration;
+        private readonly IAuthenticationService _authentication;
+
+        public UsuarioController(IUsuarioRepository usuarioRepository, IConfiguration configuration, IAuthenticationService authentication)
+        {
+            _usuarioRepository = usuarioRepository;
+            _configuration = configuration;
+            _authentication = authentication;
+        }
+
         /// <summary>
         /// Esse serviço permite autenticar um usuario cadastrado e ativo.
         /// Params: Login, Senha
@@ -32,38 +38,27 @@ namespace Arquitetura.API.Controllers
         [ValidacaoModelStateCustomizado]
         public IActionResult Logar(LoginViewModelInput loginViewModelInput)
         {
-            //Usuario Moock:
-            var usuarioMoock = new UsuarioViewModelOutput()
-            {
-                Codigo = 1,
-                Login = "nomedousuario",
-                Email = "emaildousuario@email.com"
-            };
+            Usuario usuario = _usuarioRepository.ObterUsuario(loginViewModelInput.Login);
 
-            // GERANDO O JWT
-            var secret = Encoding.ASCII.GetBytes("MzfsT&d9gprP>!9$Es(X!5g@;ef!5sbk:jH\\2.}8ZP'qY#7");// PEGAR DO appsettings
-            var symmetricSecurityKey = new SymmetricSecurityKey(secret);
+            if (usuario is null)
+                return BadRequest("Usuário não encontrado no sistema");
 
-            var securityTokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, usuarioMoock.Codigo.ToString()),
-                    new Claim(ClaimTypes.Name, usuarioMoock.Login.ToString()),
-                    new Claim(ClaimTypes.Email, usuarioMoock.Email.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)
-            };
-            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            var tokenGenerate = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-            var token = jwtSecurityTokenHandler.WriteToken(tokenGenerate);
+            //if (usuario.Senha != loginViewModel.Senha.GerarSenhaCriptografada())
+            //    return BadRequest("Erro ao tentar acessar");
 
+            var usuarioViewModelOutput = new UsuarioViewModelOutput()
+            {     
+                Codigo = usuario.Codigo,
+                Login = usuario.Login,
+                Email = usuario.Email
+            };            
+
+            var token = _authentication.GerarToken(usuarioViewModelOutput);  
 
             return Ok(new
             {
                 Token = token,
-                Usuario = usuarioMoock
+                Usuario = usuario
             });
         }
 
@@ -79,25 +74,16 @@ namespace Arquitetura.API.Controllers
         [ValidacaoModelStateCustomizado]
         public IActionResult Regsitrar(RegistrarViewModelInput registrarViewModelInput)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
-
-            var migrationsPendentes = contexto.Database.GetPendingMigrations();
-            if (migrationsPendentes.Count() > 0)
+            var usuario = new Usuario()
             {
-                contexto.Database.Migrate();
-            }
-
-            var usuario = new Usuario();
-            usuario.Login = registrarViewModelInput.Login;
-            usuario.Email = registrarViewModelInput.Email;
-            usuario.Senha = registrarViewModelInput.Senha;
-            contexto.Usuario.Add(usuario);
-            contexto.SaveChanges();
-
-
-            return Created("", registrarViewModelInput);
+                Login = registrarViewModelInput.Login,
+                Email = registrarViewModelInput.Email,
+                Senha = registrarViewModelInput.Senha
+            };
+            _usuarioRepository.Adicionar(usuario);
+            _usuarioRepository.commit();
+            
+            return Created("", usuario);
         }
     }
 }

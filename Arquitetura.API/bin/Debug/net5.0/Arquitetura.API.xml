@@ -27,11 +27,9 @@
         </member>
         <member name="M:Arquitetura.API.Controllers.UsuarioController.Regsitrar(Arquitetura.API.Models.RegistrarViewModelInput)">
             <summary>
-            Registrar Usuario no sitema.
-            Params: Login, Email, Senha
+            Esse serviço permite cadastrar um usuario no sitema.
             </summary>
-            <param name="registrarViewModelInput"></param>
-            <returns></returns>
+            <param name="registrarViewModelInput">View model de registro de login</param>
         </member>
     </members>
 </doc>

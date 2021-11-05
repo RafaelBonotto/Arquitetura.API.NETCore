@@ -1,6 +1,11 @@
+using Arquitetura.API.Business.Repositorys;
+using Arquitetura.API.Configurations;
+using Arquitetura.API.Infraestruture.Data;
+using Arquitetura.API.Infraestruture.Data.Repositorys;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +30,18 @@ namespace Arquitetura.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Injeção de dependência
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ICursoRepository, CursoRepository>();
+            services.AddScoped<IAuthenticationService, JwtService>();
+
+            //Base de dados
+            services.AddDbContext<CursoDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+
             services.AddControllers();
             services.AddControllers().ConfigureApiBehaviorOptions(options =>
             {
